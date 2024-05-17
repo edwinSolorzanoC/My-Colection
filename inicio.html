@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="styles/inicio.css">
 </head>
 <body>
     <header>
@@ -19,6 +21,30 @@
 
     <main>
         
+        <section class="agregarAuto">
+            <div class="form-container">
+                <form id="loginForm" action="#" method="post">
+                    <h2>Agregar nuevo auto</h2>
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" required>
+        
+                    <label for="set">Set:</label>
+                    <input type="text" id="set" name="set" required>
+
+                    <label for="option">Seleccionar Opción:</label>
+                    <select id="option" name="option" no-required>
+                        <option value="">Seleccione una opción</option>
+                        <option value="Treasure Hunt">Treasure Hunt</option>
+                        <option value="Super Treasure Hunt">Super Treasure Hunt</option>
+                    </select>
+
+                    <label for="image">Subir Imagen:</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+        
+                    <button type="submit" id="ingresar">Ingresar</button>
+                </form>
+            </div>
+        </section>
     </main>
     
     <footer>

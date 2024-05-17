@@ -1,23 +1,6 @@
 @import url(main.css);
 
 
-header .logo{
-    width: 40%;
-}
-header .logo img{
-    height: 50px;
-}
-header .navegacion{
-    width: 60%;
-    display: flex;
-    align-items: center;
-}
-header .navegacion a{
-    padding: 2%;
-    text-decoration: none;
-    color: #00448d;
-}
-
 main{
     background-image: url(../resources/fondos/fondo4.jpeg);
     background-size: cover;
@@ -28,15 +11,6 @@ main{
     height: 100%;
 
     color: white;
-}
-
-.title{
-    color: #fff;
-    font-size: 1rem;
-}
-
-.login{
-    display: flex;
 }
 
 form h2 {
@@ -51,7 +25,7 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],input[type="file"],select {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -97,26 +71,4 @@ button:hover {
 
 .signup-link a:hover {
     color: #0056b3;
-}
-
-.banner{
-    backdrop-filter: blur(2px);
-    background-color: rgba(0, 0, 0, 0.300);
-}
-.banner img{
-    width: 100%;
-}
-
-footer{
-    background-color: #001528;
-    color: rgb(255, 255, 255);
-
-}
-footer .fines{
-    padding: 5%;
-}
-footer .creador{
-    text-align: center;
-    background-color: #ff4500;
-    color: #bcbcbc;
 }
