@@ -30,6 +30,7 @@ main{
     color: white;
 }
 
+
 .title{
     color: #fff;
     font-size: 1rem;
@@ -99,12 +100,11 @@ button:hover {
     color: #0056b3;
 }
 
-.banner{
-    backdrop-filter: blur(2px);
-    background-color: rgba(0, 0, 0, 0.300);
+.porque .imagen{
+    text-align: center;
 }
-.banner img{
-    width: 100%;
+.porque .imagen img{
+    height: 100px;
 }
 
 footer{
@@ -129,3 +129,4 @@ footer .creador{
 footer a{
     color: #0056b3;
 }
+

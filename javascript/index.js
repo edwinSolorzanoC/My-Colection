@@ -5,7 +5,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
         
-        if (username === 'administrador' && password === '123456') {
+        if (username === 'Administrador' && password === '123456') {
             window.location.href = 'principal.html';
         } else {
             alert('Usuario o contraseña incorrectos');
