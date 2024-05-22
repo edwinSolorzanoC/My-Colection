@@ -1,17 +1,5 @@
 @import url(main.css);
 
-main{
-    background-image: url(../resources/fondos/fondo4.jpeg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-
-    height: 100%;
-
-    color: white;
-
-}
 
 footer{
     display: block;
@@ -118,7 +106,7 @@ button:hover {
     backdrop-filter: blur(2px);
     background-color: rgba(0, 0, 0, 0.300);
 
-    padding-bottom: 20%;
+    padding-bottom: 30%;
 }
 .banner img{
     width: 100%;

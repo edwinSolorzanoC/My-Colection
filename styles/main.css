@@ -8,7 +8,19 @@
     padding: 0px;
 }
 
+header{
+    font-family: "Kalam", cursive;
+}
 main{
+    background-image: url(../resources/fondos/fondo4.jpeg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+
+    height: 100%;
+
+    color: white;
     font-family: "Kalam", cursive;
 }
 
@@ -21,5 +33,13 @@ section{
 header{
     display: flex;
     align-items: center;
+
+    background-color: #0056b3;
+    color: white;
+
+    padding: 0% 2%;
 }
 
+footer{
+    font-family: "Kalam", cursive;
+}

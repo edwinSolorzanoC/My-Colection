@@ -18,17 +18,7 @@ header .navegacion a{
     color: #00448d;
 }
 
-main{
-    background-image: url(../resources/fondos/fondo4.jpeg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
 
-    height: 100%;
-
-    color: white;
-}
 
 .title{
     color: #fff;
