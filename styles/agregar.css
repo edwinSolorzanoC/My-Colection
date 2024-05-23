@@ -9,19 +9,7 @@ footer{
     background-color: #0056b3;
 }
 
-footer .navegacion{
-    display: flex;
-    margin: 5%;
 
-    justify-content: center;
-    justify-content: space-around;
-}
-
-footer .navegacion a{
-    font-size: 2rem;
-
-    color: #fff;
-}
 
 
 

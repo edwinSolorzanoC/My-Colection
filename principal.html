@@ -23,6 +23,41 @@
 
     <main>
         
+        <section class="buscar">
+            <div class="titulo">
+                <p>Buscar autos en mi coleccion</p>
+                <button class="mostrar" id="toggleButton">
+
+                    <i id="plus" class="fa-solid fa-circle-plus"></i>
+                    <i id="minus" <i class="fa-solid fa-circle-minus"></i></i>
+                </button>
+            </div>
+            
+            <div class="form-container" id="formulario">
+                <form id="loginForm" action="#" method="post">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" >
+        
+                    <label for="set">Edición:</label>
+                    <input type="text" id="dicion" name="edicion" >
+
+                    <label for="set">Set:</label>
+                    <input type="text" id="set" name="set" >
+
+                    <label for="opciones">Especial:</label>
+                    <select id="opciones" name="opciones">
+                        <option value="opcion1">Elige una opción</option>
+                        <option value="opcion2">TH</option>
+                        <option value="opcion3">STH</option>
+                    </select>
+
+                    <button class="ir" type="submit" id="ingresar">Buscar <i class="fa-solid fa-magnifying-glass"></i></button>
+        
+                </form>
+            </div>
+
+        </section>
+
         <section class="coleccion">
             <div class="titulo">
                 <h1>Tu Coleccion</h1>
@@ -154,17 +189,20 @@
             
 
         </section>
+
+        
     
     </main>
     
     <footer>
         <div class="navegacion">
             <a href="principal.html"><i class="fa-solid fa-house"></i></a>
-            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
             <a href="agregar.html"><i class="fa-solid fa-circle-plus"></i></a>
             <a href="perfil.html"><i class="fa-solid fa-circle-user"></i></a>
         </div>
     </footer>
+
+    <script src="js/principal.js"></script>
 
 </body>
 </html>

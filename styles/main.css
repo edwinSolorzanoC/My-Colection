@@ -43,3 +43,17 @@ header{
 footer{
     font-family: "Kalam", cursive;
 }
+
+footer .navegacion{
+    display: flex;
+    margin: 2%;
+
+    justify-content: center;
+    justify-content: space-around;
+}
+
+footer .navegacion a{
+    font-size: 2rem;
+
+    color: #fff;
+}
