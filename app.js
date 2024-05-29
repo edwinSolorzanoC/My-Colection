@@ -1,10 +1,21 @@
 
-
-//importar lib
 const express = require("express");
-
 //crear objeto para llamar metodos de expreess:::::::::::::
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
+
+//conf puerto para serrver local::::::::::::::::::::::::::::
+app.listen(3000,function(){ //8000, 5000...
+    console.log("El servido es http://localhost:3000");
+}); 
+
+
+const conexion = require("./public/js/conexion"); //clase conexion.js
+
+
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 //configuraciones para saber que se va a uarsa ejs
@@ -22,74 +33,51 @@ app.get("/registrarse", function(req,res){ //req es requerimiento, res es respue
 });
 
 
-//conf puerto para serrver local::::::::::::::::::::::::::::
-app.listen(3000,function(){ //8000, 5000...
-    console.log("El servido es http://localhost:3000");
-}); 
 
 
 
-//::::::::::::::::::::::::::::::::.
-let mysql = require("mysql");
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
-//CONEXION A LA BASE DE DATOS:::::::::::::::::::::::::::::::::::
-let conexion = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "patodonal26",
-    database: "dbmycolection"
-});
+//INGRESAR DATOS DESDE REGISTRARSE.EJS:::::::::::::::::::::::::::::::::::::::::::::::::
+app.post("/ingresar",function(req,res){ //lectura post desde registrar form
 
-//leer errores de conexion
-conexion.connect(function(err){
-     if(err){
-        console.log(err)
-    }else{
-          console.log("conexion exitosa");
+  const datosUs = req.body; //trae los datos en paquete desde el formulario
+  //aca se sepran los datos y se guardan en variables separadas para luego usarse en la insercion y consulta hacia la basde de datos
+  let name = datosUs.username;
+  let pass = datosUs.password;
+
+
+  let buscar = "SELECT * FROM tb_usuario WHERE tb_usuario_nombre = '"+name+"' "; //hace un select al nombre de la tabla usuarios para que no se repita el usuario
+
+  conexion.query(buscar,function(error,row){ //este es un query para hacer que no se repitan usuarios
+
+      if(error){
+
+          throw error; //si hay error tirelo
+
+      }else{
+
+          if(row.length>0){ //si en la linea hay algo repetido avise
+
+              console.log("Usuario Existente");
+
+          }else{ //en caso de que no existan usuarios repetidos, vamos a hacer el query de insercion a la base de datos
+
+              let registrar = "INSERT INTO tb_usuario (tb_usuario_nombre, tb_usuario_contrasenna) VALUES ('"+name+"','"+pass+"')"; //linea de codigo para registrar en caso de toodo nice
+              
+              conexion.query(registrar,function(error){ //haga registrar y una funcion en caso de que lago salga mal
+                  if(error){
+                      throw error;
+                  }else{
+                      console.log("Datos almacenados en la bd"); //si todo sale good almacene
+                  }
+              });
+          }
+
       }
+   });
+
   });
-  
-  //no recuerdo para que era pero se que tebia que ver con eso jejejej
-  app.use(express.json());
-  app.use(express.urlencoded({extended:false}));
 
-  app.post("/ingresar",function(req,res){ //lectura post desde registrar form
-
-    const datosUs = req.body; //trae los datos
-    //aca se sepran los datos
-    let name = datosUs.username;
-    let pass = datosUs.password;
-
-
-    let buscar = "SELECT * FROM tb_usuario WHERE tb_usuario_nombre = '"+name+"' "; //hace un select al nombre de la tabla usuarios
-
-    conexion.query(buscar,function(error,row){
-
-        if(error){
-
-            throw error; //si hay error tirelo
-
-        }else{
-
-            let mensaje;
-            if(row.length>0){ //si en la linea hay algo repetido avise
-                mensaje = "Usuario Existente"
-                console.log(mensaje);
-            
-            }else{
-                let registrar = "INSERT INTO tb_usuario (tb_usuario_nombre, tb_usuario_contrasenna) VALUES ('"+name+"','"+pass+"')"; //linea de codigo para registrar en caso de toodo nice
-                
-                conexion.query(registrar,function(error){ //haga registrar y una funcion en caso de que lago salga mal
-                    if(error){
-                        throw error;
-                    }else{
-                        console.log("Datos almacenados en la bd"); //si todo sale good almacene
-                    }
-                });
-            }
-        }
-     });
-
-    });
