@@ -1,0 +1,79 @@
+// //importar lib
+// const express = require("express");
+
+// const mysql = require("mysql");
+
+// //crear objeto para llamar metodos de expreess:::::::::::::
+// const app = express();
+
+// let conexion = mysql.createConnection({
+//     host: "localhost",
+//     database: "dbmycolection",
+//     user: "root",
+//     password: "patodonal26"
+// })
+
+// app.use(express.json());
+// app.use(express.urlencoded({extended:false}));
+
+
+// //configuraciones para saber que se va a uarsa ejs
+// app.set("view engine", "ejs");
+
+// //dice que pagina se va a abrir
+// app.get("/", function(req,res){ //req es requerimiento, res es respuesta
+//     res.render("registrarse"); //aca se pone lo que debe de renderizar
+// });
+
+
+
+
+// app.post("/ingresar",function(req,res){
+//     const datosUs = req.body;
+
+//     let name = datosUs.username;
+//     let pass = datosUs.password;
+
+
+//     let buscar = "SELECT * FROM tb_usuario WHERE tb_usuario_nombre = '"+name+"' ";
+
+//     conexion.query(buscar,function(error,row){
+//         if(error){
+
+//             throw error;
+
+//         }else{
+
+//             if(row.length>0){
+
+//                 console.log("Usuario Existente");
+
+//             }else{
+
+//                 let registrar = "INSERT INTO tb_usuario (tb_usuario_nombre, tb_usuario_contrasenna) VALUES ('"+name+"','"+pass+"')";
+
+//                 conexion.query(registrar,function(error){
+//                     if(error){
+//                         throw error;
+//                     }else{
+//                         console.log("Datos almacenados en la bd");
+//                     }
+//                 });
+
+                
+//             }
+//         }
+//     });
+
+    
+
+
+// });
+
+
+
+
+// //conf puerto para serrver local::::::::::::::::::::::::::::
+// app.listen(3000,function(){ //8000, 5000...
+//     console.log("El servido es http://localhost:3000");
+// }); 

@@ -1,0 +1,59 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+header{
+    font-family: "Kalam", cursive;
+}
+main{
+    background-image: url(../resources/fondos/fondo4.jpeg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+
+    height: 100%;
+
+    color: white;
+    font-family: "Kalam", cursive;
+}
+
+section{
+    backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.300);
+    padding: 5%;
+}
+
+header{
+    display: flex;
+    align-items: center;
+
+    background-color: #0056b3;
+    color: white;
+
+    padding: 0% 2%;
+}
+
+footer{
+    font-family: "Kalam", cursive;
+}
+
+footer .navegacion{
+    display: flex;
+    margin: 2%;
+
+    justify-content: center;
+    justify-content: space-around;
+}
+
+footer .navegacion a{
+    font-size: 2rem;
+
+    color: #fff;
+}
