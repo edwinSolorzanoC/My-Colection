@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({extended:true}));
 
 //conf puerto para serrver local::::::::::::::::::::::::::::
 app.listen(3000,function(){ //8000, 5000...
@@ -80,4 +80,36 @@ app.post("/ingresar",function(req,res){ //lectura post desde registrar form
    });
 
   });
+
+
+  //CONSULTAR DATOS DESDE INDEX..EJS:::::::::::::::::::::::::::::::::::::::::::::::::
+  app.post("/consultar",function(req,row){
+    const datosUs = req.body; //trae los datos en paquete desde el formulario
+    //aca se sepran los datos y se guardan en variables separadas para luego usarse en la insercion y consulta hacia la basde de datos
+    let name = datosUs.username;
+    let pass = datosUs.password;
+
+    //este buscar hace revicion a la base de datos con los datos que el usuario digita
+    let buscar = " SELECT tb_usuario_nombre,tb_usuario_contrasenna FROM tb_usuario WHERE tb_usuario_nombre = '"+name+"' AND tb_usuario_contrasenna = '"+pass+"' ";
+
+    conexion.query(buscar,function(error,row){ //este es un query para hacer que no se repitan usuarios
+
+        if(error){
+  
+            throw error; //si hay error tirelo
+  
+        }else{
+  
+            if(row.length > 0){ //si en la linea hay algo repetido avise
+  
+                console.log("Usuario Existente");
+  
+            }else{ //en caso de que no existan usuarios repetidos, vamos a hacer el query de insercion a la base de datos
+                console.log("Datos incorrectos");
+            }
+  
+        }
+     });
+
+  })
 
