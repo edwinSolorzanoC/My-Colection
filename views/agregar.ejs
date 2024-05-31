@@ -33,9 +33,9 @@
             <h1>Agregar un nuevo auto</h1>
 
             <div class="form-container">
-                <form id="loginForm" action="#" method="post">
+                <form id="loginForm" action="/nuevoAuto" method="post">
                     <label for="name">Nombre:</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="nameAuto" required>
         
                     <label for="set">Edición:</label>
                     <input type="text" id="dicion" name="edicion" required>
@@ -65,13 +65,7 @@
         </div>
     </main>
     
-    <footer>
-        <div class="navegacion">
-            <a href="principal.html"><i class="fa-solid fa-house"></i></a>
-            <a href="agregar.html"><i class="fa-solid fa-circle-plus"></i></a>
-            <a href="#"><i class="fa-solid fa-circle-user"></i></a>
-        </div>
-    </footer>
+    <%- include ("./templates/footer.ejs") %>
 
 </body>
 </html>
