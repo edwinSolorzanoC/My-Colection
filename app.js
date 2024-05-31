@@ -1,10 +1,19 @@
 
 const express = require("express");
+const session = require('express-session');
 //crear objeto para llamar metodos de expreess:::::::::::::
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+
+
+app.use(session({
+    secret: 'estaseralaclavesecretaparaelexpress', // Debes cambiar esto por una clave secreta segura y única para tu aplicación
+    resave: false,
+    saveUninitialized: true
+}));
 
 //conf puerto para serrver local::::::::::::::::::::::::::::
 app.listen(3000,function(){ //8000, 5000...
@@ -63,6 +72,8 @@ app.post("/ingresar",function(req,res){ //lectura post desde registrar form
 
   let buscar = "SELECT * FROM tb_usuarios WHERE tb_usuarios_nombre = '"+name+"' "; //hace un select al nombre de la tabla usuarios para que no se repita el usuario
 
+  
+
   conexion.query(buscar,function(error,row){ //este es un query para hacer que no se repitan usuarios
 
       if(error){
@@ -84,6 +95,7 @@ app.post("/ingresar",function(req,res){ //lectura post desde registrar form
                       throw error;
                   }else{
                       console.log("Datos almacenados en la bd"); //si todo sale good almacene
+
                       res.render('index', { username: name });
                   }
               });
@@ -98,23 +110,23 @@ app.post("/ingresar",function(req,res){ //lectura post desde registrar form
   //CONSULTAR DATOS DESDE INDEX..EJS PARA INICIAR SESION:::::::::::::::::::::::::::::::::::::::::::::::::
   app.post("/consultar", function(req, res) {
     const datosUs = req.body; // trae los datos en paquete desde el formulario
-    // acá se separan los datos y se guardan en variables separadas para luego usarse en la inserción y consulta hacia la base de datos
     let name = datosUs.username;
     let pass = datosUs.password;
 
-    // este buscar hace revisión a la base de datos con los datos que el usuario digita
-    let buscar = "SELECT tb_usuarios_nombre, tb_usuarios_contrasenna FROM tb_usuarios WHERE tb_usuarios_nombre = '" + name + "' AND tb_usuarios_contrasenna = '" + pass + "'";
+    // Consulta para verificar la existencia del usuario con las credenciales proporcionadas
+    let buscar = "SELECT idtb_usuarios, tb_usuarios_nombre, tb_usuarios_contrasenna FROM tb_usuarios WHERE tb_usuarios_nombre = ? AND tb_usuarios_contrasenna = ?";
 
-    conexion.query(buscar, function(error, row) { // este es un query para hacer que no se repitan usuarios
+    conexion.query(buscar, [name, pass], function(error, results) { // Usamos parámetros para evitar inyección SQL
         if (error) {
-            throw error; // si hay error, tírelo
+            throw error; // Si hay error, lo lanza
         } else {
-            if (row.length > 0) { // si en la línea hay algo repetido, avise
+            if (results.length > 0) {
                 console.log("Usuario Existente");
-                res.render('principal', { username: name }); // abre el archivo saludos.ejs
-            } else { // en caso de que no existan usuarios repetidos, vamos a hacer el query de inserción a la base de datos
+                req.session.userId = results[0].idtb_usuarios; // Guarda el ID del usuario en la sesión
+                res.render('principal', { username: name }); // Renderiza la página principal con el nombre de usuario
+            } else {
                 console.log("Datos incorrectos");
-                res.render('index', { username: name });
+                res.render('index', { username: name }); // Renderiza la página de inicio con el nombre de usuario
             }
         }
     });
@@ -122,27 +134,29 @@ app.post("/ingresar",function(req,res){ //lectura post desde registrar form
 
 
 //INGRESAR AUTOS A LA COLECCION DESDE AGREGAR.EJS:::::::::::::::::::::::::::::::::::::::::::::::::
-app.post("/nuevoAuto",function(req,res){ //lectura post desde registrar form
-
-    const datosUs = req.body; //trae los datos en paquete desde el formulario
-    //aca se sepran los datos y se guardan en variables separadas para luego usarse en la insercion y consulta hacia la basde de datos
+app.post("/nuevoAuto", function(req, res) {
+    const datosUs = req.body;
     let nameAuto = datosUs.nameAuto;
     let set = datosUs.set;
     let edicion = datosUs.edicion;
     let imagen = datosUs.imagen;
     let opciones = datosUs.opciones;
 
-    let registrar = "INSERT INTO tb_autos (tb_autos_nombre, tb_autos_set, tb_autos_edicion, tb_autos_imagen) VALUES ('"+nameAuto+"','"+set+"','"+edicion+"','"+opciones+"','"+imagen+"')"; //linea de codigo para registrar auto, en caso de toodo nice
-                
-                conexion.query(registrar,function(error){ //haga registrar y una funcion en caso de que lago salga mal
-                    if(error){
-                        throw error;
-                    }else{
-                        console.log("Datos almacenados en la bd"); //si todo sale good almacene
-                        res.render('principal', { username: nanameAutome });
-                    }
-                });
+    // Asegúrate de que `req.session.userId` esté presente
+    if (!req.session.userId) {
+        return res.redirect('/login'); // Redirige al login si el usuario no está autenticado
+    }
 
-  
+    let registrar = "INSERT INTO tb_autos (tb_autos_nombre, tb_autos_set, tb_autos_edicion, tb_autos_imagen, tb_usuarios_idtb_usuarios) VALUES (?, ?, ?, ?, ?)";
+    
+    // Aquí estamos utilizando los parámetros de consulta para evitar inyecciones SQL y asegurar la correspondencia
+    conexion.query(registrar, [nameAuto, set, edicion, imagen, req.session.userId], function(error) {
+        if (error) {
+            throw error;
+        } else {
+            console.log("Datos almacenados en la bd");
+            res.render('principal', { username: nameAuto });
+        }
     });
+});
   
